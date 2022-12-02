@@ -1,0 +1,12 @@
+inner_dict:
+  ☭: 12
+  ⚒:
+  - 1
+  - 2
+  ⚓: spam
+int_numb: 42
+list:
+- 1
+- 2
+- 3
+- 4
