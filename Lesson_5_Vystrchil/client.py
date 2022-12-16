@@ -5,7 +5,7 @@ import json
 import socket
 import time
 
-import log.client_log_config
+import log_config.client_log_config
 from common.variables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
     RESPONSE, ERROR, DEFAULT_IP_ADDRESS, DEFAULT_PORT
 from common.utils import get_message, send_message

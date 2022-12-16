@@ -4,7 +4,7 @@ import socket
 import sys
 import json
 
-import log.server_log_config
+import log_config.server_log_config
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
     PRESENCE, TIME, USER, ERROR, DEFAULT_PORT
 from common.utils import get_message, send_message

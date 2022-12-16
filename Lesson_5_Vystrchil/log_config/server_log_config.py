@@ -1,11 +1,13 @@
 import logging.handlers
+import os.path
 
 from Lesson_5_Vystrchil.common.variables import LOGGING_LEVEL
 
 server_logger = logging.getLogger("server")
 formatter = logging.Formatter("%(asctime)s %(levelname)-10s %(module)s %(message)s")
 
-file_handler = logging.handlers.TimedRotatingFileHandler("server_log.log", encoding="utf8", interval=1, when="D")
+path = os.path.join(os.path.abspath(".."), "log", "server_log.log")
+file_handler = logging.handlers.TimedRotatingFileHandler(path, encoding="utf8", interval=1, when="D")
 file_handler.setFormatter(formatter)
 
 server_logger.addHandler(file_handler)
