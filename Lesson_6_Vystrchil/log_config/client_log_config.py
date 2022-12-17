@@ -1,7 +1,7 @@
 import logging
 import os.path
 
-from Lesson_5_Vystrchil.common.variables import LOGGING_LEVEL
+from Lesson_6_Vystrchil.common.variables import LOGGING_LEVEL
 
 client_logger = logging.getLogger("client")
 formatter = logging.Formatter("%(asctime)s %(levelname)-10s %(module)s %(message)s")
