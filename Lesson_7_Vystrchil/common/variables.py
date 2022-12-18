@@ -24,3 +24,7 @@ RESPONSE = 'response'
 ERROR = 'error'
 
 LOGGING_LEVEL = logging.DEBUG
+
+MESSAGE = "message"
+MESSAGE_TEXT = "mess_text"
+SENDER = "sender"
