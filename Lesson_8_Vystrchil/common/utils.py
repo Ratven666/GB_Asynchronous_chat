@@ -1,7 +1,7 @@
 import json
 from common.variables import MAX_PACKAGE_LENGTH, ENCODING
 
-from Lesson_7_Vystrchil.common.logs_decorator import log
+from Lesson_8_Vystrchil.common.logs_decorator import log
 
 
 @log

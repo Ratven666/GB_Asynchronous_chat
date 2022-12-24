@@ -8,7 +8,7 @@ import time
 
 from Lesson_7_Vystrchil.common.logs_decorator import log
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
-    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, MESSAGE, MESSAGE_TEXT, SENDER
+    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, MESSAGE, MESSAGE_TEXT, SENDER, DESTINATION
 from common.utils import get_message, send_message
 
 logger = logging.getLogger('server')
@@ -66,12 +66,34 @@ def arg_parser():
     return listen_address, listen_port
 
 
+@log
+def process_message(message, names, listen_socks):
+    """
+    Функция адресной отправки сообщения определённому клиенту. Принимает словарь сообщение,
+    список зарегистрированых пользователей и слушающие сокеты. Ничего не возвращает.
+    :param message:
+    :param names:
+    :param listen_socks:
+    :return:
+    """
+    if message[DESTINATION] in names and names[message[DESTINATION]] in listen_socks:
+        send_message(names[message[DESTINATION]], message)
+        logger.info(f"Отправлено сообщение пользователю {message[DESTINATION]} "
+                    f"от пользователя {message[SENDER]}.")
+    elif message[DESTINATION] in names and names[message[DESTINATION]] not in listen_socks:
+        raise ConnectionError
+    else:
+        logger.error(
+            f"Пользователь {message[DESTINATION]} не зарегистрирован на сервере, "
+            f"отправка сообщения невозможна.")
+
+
 def main():
-    '''
+    """
     Загрузка параметров командной строки, если нет параметров, то задаём значения по умоланию.
     Сначала обрабатываем порт:
     :return:
-    '''
+    """
     listen_address, listen_port = arg_parser()
 
     # Готовим сокет
@@ -83,7 +105,8 @@ def main():
     # список клиентов , очередь сообщений
     clients = []
     messages = []
-
+    names = {}
+    
     # Слушаем порт
     transport.listen(MAX_CONNECTIONS)
 
@@ -117,21 +140,14 @@ def main():
                                 f"отключился от сервера.")
                     clients.remove(client_with_message)
 
-        # отправляем сообщения
-        if messages and send_data_lst:
-            message = {
-                ACTION: MESSAGE,
-                SENDER: messages[0][0],
-                TIME: time.time(),
-                MESSAGE_TEXT: messages[0][1]
-            }
-            del messages[0]
-            for waiting_client in send_data_lst:
-                try:
-                    send_message(waiting_client, message)
-                except:
-                    logger.info(f"Клиент {waiting_client.getpeername()} отключился от сервера.")
-                    clients.remove(waiting_client)
+        for i in messages:
+            try:
+                process_message(i, names, send_data_lst)
+            except Exception:
+                logger.info(f"Связь с клиентом с именем {i[DESTINATION]} была потеряна")
+                clients.remove(names[i[DESTINATION]])
+                del names[i[DESTINATION]]
+        messages.clear()
 
 
 if __name__ == '__main__':

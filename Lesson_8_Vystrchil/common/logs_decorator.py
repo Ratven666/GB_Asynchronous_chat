@@ -1,9 +1,9 @@
 import sys
 import inspect
 
-from Lesson_7_Vystrchil.log_config.server_log_config import *
-from Lesson_7_Vystrchil.log_config.client_log_config import *
-from Lesson_7_Vystrchil.log_config.console_log_config import *
+from Lesson_8_Vystrchil.log_config.server_log_config import *
+from Lesson_8_Vystrchil.log_config.client_log_config import *
+from Lesson_8_Vystrchil.log_config.console_log_config import *
 
 
 def log(func):
