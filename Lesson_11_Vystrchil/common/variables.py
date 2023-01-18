@@ -37,3 +37,5 @@ RESPONSE_400 = {
             RESPONSE: 400,
             ERROR: None
         }
+
+DATABASE_NAME = "Server_db.sqlite"
