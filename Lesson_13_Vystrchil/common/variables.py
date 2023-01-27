@@ -39,3 +39,9 @@ RESPONSE_400 = {
         }
 
 DATABASE_NAME = "Server_db.sqlite"
+
+GET_CONTACTS = "get_contacts"
+LIST_INFO = "data_list"
+REMOVE_CONTACT = "remove"
+ADD_CONTACT = "add"
+USERS_REQUEST = "get_users"
