@@ -48,6 +48,10 @@ class ClientMainWindow(QMainWindow):
 
         self.clients_list_update()
         self.set_disabled_input()
+
+        self.current_chat_key = None
+        self.encryptor = None
+
         self.show()
 
     def set_disabled_input(self):
@@ -59,6 +63,10 @@ class ClientMainWindow(QMainWindow):
         self.ui.btn_clear.setDisabled(True)
         self.ui.btn_send.setDisabled(True)
         self.ui.text_message.setDisabled(True)
+
+        self.encryptor = None
+        self.current_chat = None
+        self.current_chat_key = None
 
     def history_list_update(self):
         list = sorted(self.database.get_history(self.current_chat), key=lambda item: item[3])
